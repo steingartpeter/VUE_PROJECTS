@@ -1,13 +1,25 @@
-const btnEmnt = document.querySelector("button");
-const inpElmnt = document.querySelector("input");
-const lstElmnt = document.querySelector("ul");
+Vue.createApp({
+  data() {
+    return { goals: [], entredValue: "" };
+  },
+  methods: {
+    addGoal() {
+      this.goals.push(this.entredValue);
+      this.entredValue = "";
+    },
+  },
+}).mount("#app");
 
-function addGoal() {
-  const entrdVal = inpElmnt.value;
-  const listItem = document.createElement("li");
-  listItem.textContent = entrdVal;
-  lstElmnt.appendChild(listItem);
-  inpElmnt.value = "";
-}
+// const btnEmnt = document.querySelector("button");
+// const inpElmnt = document.querySelector("input");
+// const lstElmnt = document.querySelector("ul");
 
-btnEmnt.addEventListener("click", addGoal);
+// function addGoal() {
+//   const entrdVal = inpElmnt.value;
+//   const listItem = document.createElement("li");
+//   listItem.textContent = entrdVal;
+//   lstElmnt.appendChild(listItem);
+//   inpElmnt.value = "";
+// }
+
+// btnEmnt.addEventListener("click", addGoal);
