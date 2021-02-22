@@ -1,0 +1,43 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Events</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>View course goals</h1>
+    </header>
+    <section id="events">
+      <h2>Events in action</h2>
+      <button v-on:click="incrsCntr()">Add</button>
+      <button v-on:click="decrsCntr()">Reduce</button>
+      <button v-on:click="incrsCntr(5)">Add 5</button>
+      <button v-on:click="decrsCntr(5)">Reduce 5</button>
+      <!-- <p v-html="outputGoal()"></p> -->
+      <p v-once>Starting counter: {{ counter }}</p>
+      <p>Result: {{ counter }}</p>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        v-on:input="setName($event,'Mr')"
+        v-on:keyup.enter="setCnfdName"
+      />
+      <p>Your name:{{ name }}</p>
+      <p>Your ACCEPTED name:{{ confirmedName }}</p>
+      <form action="" method="get" v-on:submit.prevent="sbmtForm">
+        <input type="text" name="x1" id="x1" />
+        <button>Sign up</button>
+      </form>
+    </section>
+  </body>
+</html>
