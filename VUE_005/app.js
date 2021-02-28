@@ -18,20 +18,6 @@ const app = Vue.createApp({
         this.counter = 0;
       }
     },
-    // name(value) {
-    //   if (value == "") {
-    //     this.fullName = "";
-    //   } else {
-    //     this.fullName = value + " " + this.lastName;
-    //   }
-    // },
-    // lastName(val) {
-    //   if (val == "") {
-    //     this.fullName = "";
-    //   } else {
-    //     this.fullName = this.name + " " + val;
-    //   }
-    // },
   },
   computed: {
     fullName() {
@@ -68,3 +54,18 @@ const app = Vue.createApp({
   },
 });
 app.mount("#events");
+
+// name(value) {
+//   if (value == "") {
+//     this.fullName = "";
+//   } else {
+//     this.fullName = value + " " + this.lastName;
+//   }
+// },
+// lastName(val) {
+//   if (val == "") {
+//     this.fullName = "";
+//   } else {
+//     this.fullName = this.name + " " + val;
+//   }
+// },
