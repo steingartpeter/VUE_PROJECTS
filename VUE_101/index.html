@@ -24,8 +24,23 @@
         No goals have been added yet - please start adding some!
       </p>
       <ul v-else>
-        <li>Goal</li>
+        <li
+          v-for="(goal, index) in goals"
+          :key="goal.id"
+          @click="removeGoal(index)"
+        >
+          {{ goal.description}}
+        </li>
       </ul>
+      <!-- Vue can show objects as well, not only arrays ith v-for:
+      <ul>
+        <li
+          v-for="(value,key,index) in {name:'Manowar',founded:'2020-12-01',income:1500,xp:4500}"
+        >
+          {{ key}}:{{value }} [{{index}}]
+        </li>
+      </ul>
+      -->
     </section>
   </body>
 </html>
