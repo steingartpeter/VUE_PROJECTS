@@ -11,9 +11,30 @@ const app = Vue.createApp({
       playerHealth: 100,
       monsterHealth: 100,
       currentRound: 0,
+      winner: null,
+      logMsgs: [],
     };
   },
-  watch: {},
+  watch: {
+    playerHealth(val) {
+      if (val <= 0 && this.monsterHealth <= 0) {
+        // 'draw
+        this.winner = "DRAW";
+      } else if (val <= 0) {
+        //player lost
+        this.winner = "MONSTER";
+      }
+    },
+    monsterHealth(val) {
+      if (val <= 0 && this.playerHealth <= 0) {
+        // 'draw
+        this.winner = "DRAW";
+      } else if (val <= 0) {
+        //monster lost
+        this.winner = "PLAYER";
+      }
+    },
+  },
   computed: {
     monsterBarStyle() {
       return { width: this.monsterHealth + "%" };
@@ -26,6 +47,15 @@ const app = Vue.createApp({
     },
   },
   methods: {
+    startGame() {
+      this.playerMaxHealth = 100;
+      this.monsterMaxHealth = 100;
+      this.playerHealth = 100;
+      this.monsterHealth = 100;
+      this.currentRound = 0;
+      this.winner = null;
+      this.logMsgs = [];
+    },
     tstMeth01() {
       console.log(this.testData);
     },
@@ -33,6 +63,7 @@ const app = Vue.createApp({
       this.currentRound++;
       let dmg = genRndmVal(3, 10);
       this.monsterHealth -= dmg;
+      this.addLogMesage("Player", "attack", dmg);
       if (this.monsterHealth > 0) {
         this.attackPlayer();
       } else {
@@ -44,6 +75,7 @@ const app = Vue.createApp({
     attackPlayer() {
       let dmg = genRndmVal(5, 12);
       this.playerHealth -= dmg;
+      this.addLogMesage("Monster", "attack", dmg);
       if (this.playerHealth <= 0) {
         this.playerHealth = 0;
         this.monsterHealth = 100;
@@ -56,6 +88,7 @@ const app = Vue.createApp({
     specialAttack() {
       this.currentRound++;
       const specDmg = genRndmVal(10, 25);
+      this.addLogMesage("Player", "special attack", specDmg);
       this.monsterHealth -= specDmg;
       if (this.monsterHealth > 0) {
         this.attackPlayer();
@@ -68,6 +101,28 @@ const app = Vue.createApp({
           this.playerHealth = 100;
         }
       }
+    },
+    healPlayer() {
+      const healAmnt = genRndmVal(8, 20);
+      this.playerHealth = Math.min(
+        this.playerHealth + healAmnt,
+        this.playerMaxHealth
+      );
+      this.addLogMesage("Player", "heal", healAmnt);
+      setTimeout(() => {
+        console.log("As you heal yourself, the monster attacks again!");
+        this.attackPlayer();
+      }, 1000);
+    },
+    surrender() {
+      this.winner = "MONSTER";
+    },
+    addLogMesage(who, what, value) {
+      this.logMsgs.unshift({
+        actionBy: who,
+        actionType: what,
+        actionValue: value,
+      });
     },
   },
 });

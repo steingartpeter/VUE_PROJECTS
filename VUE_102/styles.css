@@ -115,8 +115,14 @@ button:disabled {
 
 .log--damage {
   color: red;
+  background-color: #f37eb8;
+  padding-left: 18px;
+  border-bottom: 1px solid #660505;
 }
 
 .log--heal {
   color: green;
+  background-color: #00a876;
+  padding-left: 18px;
+  border-bottom: 1px solid #054602;
 }

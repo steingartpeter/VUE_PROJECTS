@@ -33,17 +33,40 @@
           </div>
         </div>
       </section>
-      <section id="controls">
+      <section class="container" v-if="winner">
+        <h2>GAME OVER</h2>
+        <h3 v-if="winner=='MONSTER'">YOU LOST</h3>
+        <h3 v-else-if="winner=='PLAYER'">YOU WON!!!</h3>
+        <h3 v-else="winner=='PLAYER'">This is a draw ...</h3>
+        <button @click="startGame">NEW GAME</button>
+      </section>
+      <section id="controls" v-else>
         <button @click="attackMonster">ATTACK</button>
         <button :disabled="specialDisabled" @click="specialAttack">
           SPECIAL ATTACK
         </button>
-        <button>HEAL</button>
-        <button>SURRENDER</button>
+        <button @click="healPlayer">HEAL</button>
+        <button @click="surrender">SURRENDER</button>
       </section>
       <section id="log" class="container">
         <h2>Battle Log</h2>
-        <ul></ul>
+        <ul>
+          <li v-for="(log,index) in logMsgs" :key="index">
+            <span
+              :class="{'log--player':log.actionBy === 'Player','log--monster':log.actionBy === 'Monster'}"
+            >
+              {{ log.actionBy === 'Player' ? 'Player' : 'Monster'}}
+            </span>
+            <span v-if="log.actionType == 'heal'">
+              heals himslef for
+              <span class="log--heal">{{log.actionValue }}</span>
+            </span>
+            <span v-else="log.actionType == 'heal'">
+              attacks, and deals
+              <span class="log--damage">{{log.actionValue }}</span>
+            </span>
+          </li>
+        </ul>
       </section>
     </div>
   </body>
