@@ -2,8 +2,16 @@
   <section>
     <header><h1>My friends</h1></header>
     <ul>
-      <friend-contact></friend-contact>
-      <friend-contact></friend-contact>
+      <friend-contact
+        @tgl-isfav="togglFavState"
+        v-for="f in friends"
+        :key="f.id"
+        :id="f.id"
+        :name="f.name"
+        :phone="f.phone"
+        :email="f.email"
+        :is-favorite="f.isFav"
+      ></friend-contact>
     </ul>
   </section>
 </template>
@@ -18,15 +26,24 @@ export default {
           name: "Manuel Lorenz",
           phone: "0123 456 7890",
           email: "manLrnz@yahoo.com",
+          isFav: true,
         },
         {
           id: "Julie 78",
           name: "Julia Jackson",
           phone: "0223 456 7890",
           email: "j_json@yahoo.com",
+          isFav: false,
         },
       ],
     };
+  },
+  methods: {
+    togglFavState(frndId) {
+      console.log("togglFavState called! the id:" + frndId);
+      const f = this.friends.find((friend) => friend.id === frndId);
+      f.isFav = !f.isFav;
+    },
   },
 };
 </script>
