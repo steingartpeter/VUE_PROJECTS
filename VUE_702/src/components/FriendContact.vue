@@ -9,6 +9,7 @@
       <li><strong>Phone:</strong>{{ phone }}</li>
       <li><strong>E-mail:</strong>{{ email }}</li>
     </ul>
+    <button @click="deleteFriend">DELETE</button>
   </li>
 </template>
 
@@ -29,7 +30,7 @@
         // },
       },
     },
-    emits: ["toggleFavorite"],
+    emits: ["toggleFavorite", "deleteFriend"],
     // emits: {
     //   toggleFavorite: function(id) {
     //     //validation
@@ -60,6 +61,9 @@
       toggleFavorite() {
         //this.friendIsFvorite = !this.friendIsFvorite;
         this.$emit("tgl-isfav", this.id);
+      },
+      deleteFriend() {
+        this.$emit("del-friend", this.id);
       },
     },
   };
