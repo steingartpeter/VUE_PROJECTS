@@ -11,25 +11,33 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      activeUser: {
-        name: 'Maximilian Schwarzmüller',
-        description: 'Site owner and admin',
-        role: 'admin',
-      },
-    };
-  },
-};
+  import TheHeader from "./components/TheHeader.vue";
+  import UserInfo from "./components/UserInfo";
+  import BadgeList from "./components/BadgeList";
+  export default {
+    components: {
+      "the-header": TheHeader,
+      "user-info": UserInfo,
+      "badge-list": BadgeList,
+    },
+    data() {
+      return {
+        activeUser: {
+          name: "Maximilian Schwarzmüller",
+          description: "Site owner and admin",
+          role: "admin",
+        },
+      };
+    },
+  };
 </script>
 
 <style>
-html {
-  font-family: sans-serif;
-}
+  html {
+    font-family: sans-serif;
+  }
 
-body {
-  margin: 0;
-}
+  body {
+    margin: 0;
+  }
 </style>
