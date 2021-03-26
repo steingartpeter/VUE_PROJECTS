@@ -9,8 +9,17 @@
     <manage-goals v-if="selectedComponent === 'manage-goals'"></manage-goals> 
     Instead of this use dynamic components, with Vue defined <component> tag
     -->
-    <component :is="selectedComponent"></component>
-
+    <!--
+      //////////////////////////////////////////////////////////////////////////// 
+    Here is a new element: keep-alive. If you have any data containing elemnt, like
+    an input field on one component, and you fill, then change the active component, 
+    your input will be lost.
+    To prevent this you can use KEEP-ALIVE. 
+    ////////////////////////////////////////////////////////////////////////////
+     -->
+    <keep-alive>
+      <component :is="selectedComponent"></component>
+    </keep-alive>
     <!--
       SLOT PRACTICE 
       <badge-list></badge-list>
@@ -29,7 +38,7 @@
 </template>
 
 <script>
-  import TheHeader from "./components/TheHeader.vue";
+  import TheHeader from "./components/layout/TheHeader.vue";
   // import UserInfo from "./components/UserInfo";
   // import BadgeList from "./components/BadgeList";
   // import CourseGoals from "./components/CourseGoals";
