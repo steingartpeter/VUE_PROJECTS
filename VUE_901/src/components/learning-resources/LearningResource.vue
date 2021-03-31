@@ -1,20 +1,25 @@
 <template>
   <li>
-    <div>
+    <base-card>
       <header>
         <h3>{{ title }}</h3>
         <button>Delete</button>
       </header>
-    </div>
-    <p>{{ description }}</p>
-    <nav>
-      <a :href="link">View resource</a>
-    </nav>
+      <p>{{ description }}</p>
+      <nav>
+        <a :href="link">View resource</a>
+      </nav>
+    </base-card>
   </li>
 </template>
 
 <script>
+//<nn>
+//  This should be registered az GLOBAL component, to have accesible enywhere
+//</nn>
+//import BaseCard from '../UI/BaseCard.vue';
 export default {
+  //components: { BaseCard },
   props: {
     title: { type: String, required: true },
     description: { type: String, required: true },
