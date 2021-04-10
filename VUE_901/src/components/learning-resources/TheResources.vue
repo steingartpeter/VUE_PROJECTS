@@ -7,18 +7,20 @@
         >Stored resources</base-button
       >
       <base-button
-        @click="setSelctedTab('add-resource')"
+        @click="setSelctedTab('add-resources')"
         :mode="addResourceMode"
         >Add new resources</base-button
       >
     </base-card>
-    <component :is="selectedTab"></component>
+    <keep-alive>
+      <component :is="selectedTab"></component>
+    </keep-alive>
   </div>
 </template>
 
 <script>
 import StoredResources from './storedResources.vue';
-import AddResources from './AddResourcs.vue';
+import AddResources from './AddResources.vue';
 export default {
   components: {
     StoredResources,
@@ -53,12 +55,32 @@ export default {
   },
   provide() {
     return {
-      resources: this.storedResources
+      resources: this.storedResources,
+      addResource: this.addResource,
+      removeResource: this.removeResource
     };
   },
   methods: {
     setSelctedTab(tab) {
       this.selectedTab = tab;
+    },
+    addResource(ttl, descr, lnk) {
+      const newResource = {
+        id: new Date().toISOString(),
+        title: ttl,
+        description: descr,
+        link: lnk
+      };
+      this.storedResources.unshift(newResource);
+      this.selectedTab = 'stored-resources';
+    },
+    removeResource(rsid) {
+      this.storedResources.splice(
+        this.storedResources.findIndex(res => res.id === rsid),
+        1
+      );
+      //this.storedResources = this.storedResources.filter(res => res.id != rsid);
+      console.log(this.storedResources);
     }
   }
 };

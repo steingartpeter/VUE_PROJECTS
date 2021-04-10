@@ -2,6 +2,7 @@
   <ul>
     <learning-resource
       v-for="(lrsc, index) in resources"
+      :id="lrsc.id"
       :key="lrsc.id"
       :title="lrsc.title"
       :description="lrsc.description"
