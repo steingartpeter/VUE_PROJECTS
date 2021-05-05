@@ -1,8 +1,15 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="form-control">
+    <div class="form-control" :class="{ invalid: nameValidity === 'invalid' }">
       <label for="user-name">Your Name</label>
-      <input id="user-name" name="user-name" type="text" v-model="userName" />
+      <input
+        id="user-name"
+        name="user-name"
+        type="text"
+        v-model.trim="userName"
+        @blur="validateName"
+      />
+      <p v-if="nameValidity == 'invalid'">Please eneter a valid name!</p>
     </div>
     <div class="form-control">
       <label for="age">Your Age (Years)</label>
@@ -108,7 +115,8 @@ export default {
       // And we need to add values ti the HTML template as well ...
       interest: [],
       how: null,
-      confirm: false
+      confirm: false,
+      nameValidity: 'pending'
     };
   },
   methods: {
@@ -129,6 +137,13 @@ export default {
       //reset checkboxes + radio
       this.interest = [];
       this.how = null;
+    },
+    validateName() {
+      if (this.userName == '') {
+        this.nameValidity = 'invalid';
+      } else {
+        this.nameValidity = 'valid';
+      }
     }
   }
 };
@@ -147,7 +162,17 @@ form {
 .form-control {
   margin: 0.5rem 0;
 }
-
+.form-control.invalid {
+  margin: 0.5rem 0;
+  background-color: #fffefe;
+}
+.form-control.invalid input {
+  border-color: crimson;
+  box-shadow: 3px 3px 6px #aa4545;
+}
+.form-control.invalid label {
+  color: crimson;
+}
 label {
   font-weight: bold;
 }
